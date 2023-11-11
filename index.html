@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    /* body {
+        background-image: url("./assests/pixels-video-games-wallpaper-preview.jpg");
+        height: 500px;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    } */
+
+    /* .container-airoplainin img {
+        transform: scaleX(-1);
+        width: 20%;
+        position: absolute;
+        left: 0;
+        animation: linear infinite;
+        animation-name: run;
+        animation-duration: 10s;
+    }
+
+
+    @keyframes run {
+        0% {
+            left: 0;
+        }
+
+        50% {
+            left: calc(100% - 20rem);
+
+
+        }
+
+        100% {
+            right: 0;
+
+        }
+    }
+
+    #skati img {
+        width: 200px;
+        height: 100px;
+        position: absolute;
+        bottom: 0;
+    } */
+
+    #container {
+      position: relative;
+      width: 700px;
+      height: 500px;
+      border: 1px solid;
+      margin: auto;
+      overflow: hidden;
+      background-image: url("./assets/background.jpg");
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    .btn {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+      bottom: 0;
+      width: 147px;
+      height: 57px;
+      border-radius: 10px;
+      background: orange;
+      color: white;
+      font-size: 2em;
+    }
+
+    #scoreBox,
+    #lifeBox {
+      position: absolute;
+      top: 0px;
+      border-radius: 40px;
+      left: 20px;
+      background-color: orange;
+      height: 3rem;
+      width: 3rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      z-index: 10;
+    }
+
+    #lifeBox {
+      left: 2.5em;
+    }
+
+    .hidden {
+      display: none;
+    }
+    #airoplain {
+      width: 250px;
+      position: absolute;
+      right: 0;
+      /* z-index: 1; */
+    }
+    .left-faced {
+      transform: scale(-1, 1);
+    }
+    #lift {
+      width: 150px;
+      position: absolute;
+      bottom: 0;
+    }
+  </style>
+
+  <body>
+    <div id="container">
+      <div id="start">
+        <button onclick="startGame()" class="btn">Start</button>
+      </div>
+      <div id="playScreen" class="hidden">
+        <h1 id="scoreBox">0</h1>
+        <h1 id="lifeBox">5</h1>
+        <img id="airoplain" src="./assets/airoplain.png" alt="" />
+        <img id="lift" src="./assets/lift-removebg-preview.png" alt="" />
+      </div>
+    </div>
+
+    <script>
+      let score = 0;
+      let life = 5;
+      let key;
+      let direction = "aagey";
+      let rightTouch = 0;
+      const container = document.getElementById("container");
+      function startGame() {
+        start.classList.add("hidden");
+        playScreen.classList.remove("hidden");
+
+        // clearInterval(key);
+        key = setInterval(function () {
+          let right = parseFloat(airoplain.style.right || 0);
+          if (direction == "aagey") {
+            right++;
+          } else if (direction == "peeche") {
+            right--;
+          }
+          if (right == container.offsetWidth - airoplain.offsetWidth) {
+            rightTouch++;
+            direction = "peeche";
+            if (rightTouch == 0) {
+              //   clearInterval(key);
+              return;
+            }
+            airoplain.classList.add("left-faced");
+          } else if (right == 0) {
+            direction = "aagey";
+            airoplain.classList.remove("left-faced");
+          }
+          //   console.log(right);
+          airoplain.style.right = right + "px";
+        }, 0);
+
+        document.onkeydown = function (event) {
+          switch (event.keyCode) {
+            case 37:
+            // console.log(lift.offsetLeft);
+            // console.log(container.offsetLeft);
+
+            //     if(lift.offsetLeft > container.offsetLeft) break;
+            lift.style.left = lift.offsetLeft - 15 + "px";
+              console.log("left");
+              break;
+            case 39:
+            lift.style.left = lift.offsetLeft + 15 + "px";
+              console.log("right");
+              break;
+          }
+        };
+      }
+    </script>
+  </body>
+</html>

@@ -98,31 +98,30 @@
     left: 2.5em;
   }
 
-  .hidden {
-    display: none;
-  }
+    .hidden {
+      display: none;
+    }
+    #airoplain {
+      width: 250px;
+      position: absolute;
+      right: 0;
+      /* z-index: 1; */
+    }
+    .left-faced {
+      transform: scale(-1, 1);
+    }
+    #lift {
+      width: 150px;
+      position: absolute;
+      bottom: 0;
+    }
+    #giftBox {
+      width: 60px;
+      position: absolute;
+      z-index: -1;
 
-  #airoplain {
-    width: 250px;
-    position: absolute;
-    right: 0;
-    /* z-index: 1; */
-  }
-
-  .left-faced {
-    transform: scale(-1, 1);
-  }
-
-  #lift {
-    width: 150px;
-    position: absolute;
-    bottom: 0;
-  }
-  .missile{
-    width: 60px;
-    position: absolute;
-  }
-</style>
+    }
+  </style>
 
 <body>
   <div id="container">
@@ -137,69 +136,58 @@
     </div>
   </div>
 
-  <script>
-    let score = 0;
-    let life = 5;
-    let key;
-    let direction = "aagey";
-    let rightTouch = 0;
-    const container = document.getElementById("container");
-    function startGame() {
-      start.classList.add("hidden");
-      playScreen.classList.remove("hidden");
-      // clearInterval(key);
-      key = setInterval(function () {
-        let right = parseFloat(airoplain.style.right || 0);
-        if (direction == "aagey") {
-          right++;
-        } else if (direction == "peeche") {
-          right--;
-        }
-        if (right == container.offsetWidth - airoplain.offsetWidth) {
-          rightTouch++;
-          direction = "peeche";
-          if (rightTouch == 0) {
-            //   clearInterval(key);
-            return;
+    <script>
+      let score = 0;
+      let life = 5;
+      let key;
+      let direction = "aagey";
+      let rightTouch = 0;
+      const container = document.getElementById("container");
+      function startGame() {
+        start.classList.add("hidden");
+        playScreen.classList.remove("hidden");
+
+        // clearInterval(key);
+        key = setInterval(function () {
+          let right = parseFloat(airoplain.style.right || 0);
+          if (direction == "aagey") {
+            right++;
+          } else if (direction == "peeche") {
+            right--;
           }
-          airoplain.classList.add("left-faced");
-        } else if (right == 0) {
-          direction = "aagey";
-          airoplain.classList.remove("left-faced");
-        }
-        //   console.log(right);
-        airoplain.style.right = right + "px";
+          if (right == container.offsetWidth - airoplain.offsetWidth) {
+            rightTouch++;
+            direction = "peeche";
+            if (rightTouch == 0) {
+              //   clearInterval(key);
+              return;
+            }
+            airoplain.classList.add("left-faced");
+          } else if (right == 0) {
+            direction = "aagey";
+            airoplain.classList.remove("left-faced");
+          }
+          //   console.log(right);
+          airoplain.style.right = right + "px";
+        }, 0);
 
-        let missile = document.createElement("img");
-        missile.style.bottom = lift.offsetTop + "px";
-        missile.style.left = lift.offsetLeft + 20 + "px";
+        document.onkeydown = function (event) {
+          switch (event.keyCode) {
+            case 37:
+            // console.log(lift.offsetLeft);
+            // console.log(container.offsetLeft);
 
-        missile.src = "assets/gift.png";
-        missile.className = "missile";
-        airoplain.appendChild(missile);
-
-        
-      }, 0);
-      
-      setInterval(function(){
-        missile.style.top = missile.offsetTop - 5 + "px"
-        
-      },20)
-
-      document.onkeydown = function (event) {
-        switch (event.keyCode) {
-          case 37:
+            //     if(lift.offsetLeft > container.offsetLeft) break;
             lift.style.left = lift.offsetLeft - 15 + "px";
-            console.log("left");
-            break;
-          case 39:
+              console.log("left");
+              break;
+            case 39:
             lift.style.left = lift.offsetLeft + 15 + "px";
-            console.log("right");
-            break;
-        }
-      };
-    }
-  </script>
-</body>
-
+              console.log("right");
+              break;
+          }
+        };
+      }
+    </script>
+  </body>
 </html>

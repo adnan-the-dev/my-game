@@ -171,6 +171,17 @@
           airoplain.style.right = right + "px";
         }, 0);
 
+        setInterval(function(){
+          let gif = document.createElement("img")
+          gif.className = "giftBox"
+          gif.src = "assets/gift.png"
+
+          gif.style.top = airoplain.offsetTop + "px";
+          gif.style.left = airoplain.offsetLeft + 20 + "px";
+          //pending work
+
+        })
+
         document.onkeydown = function (event) {
           switch (event.keyCode) {
             case 37:
